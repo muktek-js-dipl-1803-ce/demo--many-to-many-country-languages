@@ -1,6 +1,8 @@
 const express = require('express')
 const knex = require('knex')
 const { Model } = require('objection')
+const bodyParser = require('body-parser')
+
 
 const knexFileConfig = require('./knexfile.js')
 const apiRouter = require('./src/routers/apiRouter.js')
@@ -12,14 +14,9 @@ const appDb = knex(knexFileConfig.development)
 Model.knex(appDb)
 app.locals.db = appDb
 
-// appDb
-//   .select('*')
-//   .from('publishers')
-//   .then((recordsFromDb)=>{
-//     console.log(recordsFromDb)
-//   })
 
-
+app.use( bodyParser.urlencoded({extended: false}) )
+app.use( bodyParser.json() )
 
 app.use('/api', apiRouter)
 

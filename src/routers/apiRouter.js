@@ -26,16 +26,39 @@ apiRouter.get('/publishers', (req, res)=>{
     .then((recordsFromDb)=>{
        res.status(200).json(recordsFromDb)
     })
-
 })
 
-apiRouter.get('/books', (req, res)=>{
-  Book.query()
-    .eager('publisher')
-    .then((bookRecords)=>{
-      res.status(200).json(bookRecords)
+apiRouter
+  .get('/books', (req, res)=>{
+    Book.query()
+      .eager('publisher')
+      .then((bookRecords)=>{
+        res.status(200).json(bookRecords)
+      })
+  })
+  .post('/books', (req, res)=>{
+    console.log(req.body)
+    Book.query()
+      .insert(req.body)
+      .then((newDbRecord)=>{
+        res.status(200).json(newDbRecord)
+      })
+  })
+  .put('/books/:_id', (req, res)=>{
+    Book.query()
+      .patchAndFetchById(req.params._id, req.body)
+      .then((editedDbRecord)=>{
+        res.status(200).json(editedDbRecord)
+      })
+    })
+  .delete('/books/:_id', (req, res)=>{
+    Book.query()
+      .deleteById(req.params._id)
+      .then((recordsDeletedNum)=>{
+        res.status(200).json({recordsDeleted: recordsDeletedNum})
+      })
     })
 
-})
+
 
 module.exports = apiRouter
