@@ -5,9 +5,9 @@ const devDbConfig =  {
   connection: {
     host : '127.0.0.1',
     port : '5432',
-    user : 'dba_bookbook',
+    user : 'dba_countrylanguages',
     password : 'passpass',
-    database : 'bookbook'
+    database : 'countrylanguages'
   },
 
   migrations : {
