@@ -9,11 +9,13 @@ exports.up =  function(knex, Promise) {
         .unsigned()
         .references('id')
         .inTable('languages')
+        .onDelete('cascade')
 
       table.integer('countries_id')
         .unsigned()
         .references('id')
         .inTable('countries')
+        .onDelete('cascade')
 
       return table
   })
